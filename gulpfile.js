@@ -18,7 +18,7 @@ var sass = require('gulp-sass');
 
 /* config vars */
 var serverPort = 8888;
-var liveReloadPort = 35731;
+var liveReloadPort = 35729;
 
 /* file paths */
 var dist = 'dist';
@@ -124,9 +124,9 @@ gulp.task('configure-release', function() {
 gulp.task('build', [ 'vendor', 'html','styles', 'scripts' ]);
 
 gulp.task('watch', function () {
-    var lrServer = livereload(liveReloadPort);
+    var lrServer = livereload({port: liveReloadPort, start: true});
     var reloadPage = function (evt) {
-        lrServer.changed(evt.path);
+        livereload.changed(evt.path);
     };
 
     function initWatch(files, task) {
