@@ -122,10 +122,10 @@ gulp.task('configure-release', function() {
 });
 
 gulp.task('copy-config', function() {
-    gulp.src(['config.js']).pipe(gulp.dest('dist/config.js'));
+    gulp.src(['config.js']).pipe(gulp.dest('dist'));
 });
 
-gulp.task('build', [ 'vendor', 'html','styles', 'scripts' ]);
+gulp.task('build', [ 'vendor', 'html','styles', 'scripts', 'copy-config' ]);
 
 gulp.task('watch', function () {
     var lrServer = livereload({port: liveReloadPort, start: true});
