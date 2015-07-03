@@ -28,6 +28,7 @@
     "gulp-streamify": "0.0.5",
     "serve-static": "~1.10.0",
     "gulp-uglify": "~1.2.0",
-    "gulp-sass": "~2.0.3"
+    "gulp-sass": "~2.0.3",
+    "react-markdown-textarea": "~1.0.0"
   }
 }

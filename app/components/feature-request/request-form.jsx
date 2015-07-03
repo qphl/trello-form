@@ -1,4 +1,5 @@
 var React = require("react/addons");
+var MarkdownTextArea = require('react-markdown-textarea');
 
 module.exports = React.createClass({
     mixins: [React.addons.LinkedStateMixin],
@@ -32,7 +33,7 @@ module.exports = React.createClass({
                         <label for="title">Title</label>
                         <input id="title" placeholder="A short description of the change" valueLink={this.linkState('title')}/>
                         <label for="card-body">Full Description</label>
-                        <textArea onChange={this.bodyChanged} id="card-body" value={this.state.body} placeholder="Provide as much detail as possible here"></textArea>
+                        <MarkdownTextArea /> 
                         <aside>(<a href="http://daringfireball.net/projects/markdown/">Markdown</a> formatting is supported)</aside>
                     </fieldset>
                     <button onClick={this.validate}>Submit your request</button>
