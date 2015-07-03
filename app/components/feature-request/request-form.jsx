@@ -15,6 +15,8 @@ module.exports = React.createClass({
     render: function() {
         return (
                 <form>
+                    <p>If you do not have a <a href="https://trello.com">Trello</a> account, you can use this form to submit a request relating to a {window.config.organisation} system for consideration by the development team.</p>
+                    <p>If you already have a trello account, you should log in, and submit it directly into the relevant trello board</p>
                     <IssueList issues={this.state.issues} />
                     <fieldset id="userDetails">
                         <legend>Your details</legend>

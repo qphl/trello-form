@@ -121,6 +121,10 @@ gulp.task('configure-release', function() {
     config.debug = false;
 });
 
+gulp.task('copy-config', function() {
+    gulp.src(['config.js']).pipe(gulp.dest('dist/config.js'));
+});
+
 gulp.task('build', [ 'vendor', 'html','styles', 'scripts' ]);
 
 gulp.task('watch', function () {
