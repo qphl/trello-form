@@ -31,10 +31,8 @@ module.exports = React.createClass({
                     <fieldset id="description">
                         <legend>Describe your feature</legend>
                         <label for="title">Title</label>
-                        <input id="title" placeholder="A short description of the change" valueLink={this.linkState('title')}/>
-                        <label for="card-body">Full Description</label>
-                        <MarkdownTextArea /> 
-                        <aside>(<a href="http://daringfireball.net/projects/markdown/">Markdown</a> formatting is supported)</aside>
+                        <input id="title" placeholder="A short description of the request" valueLink={this.linkState('title')}/>
+                        <MarkdownTextArea rows="10" placeholder="A detailed description your request goes here" value={this.state.body} onChange={this.bodyChanged}/> 
                     </fieldset>
                     <button onClick={this.validate}>Submit your request</button>
                     <button onClick={this.clear}>Clear</button>
