@@ -21,32 +21,28 @@ module.exports = React.createClass({
                     <IssueList issues={this.state.issues} />
                     <fieldset id="userDetails">
                         <legend>Your details</legend>
-                        <label for="firstName">First Name</label>
+                        <label htmlFor="firstName">First Name</label>
                         <input id="firstName" valueLink={this.linkState('firstName')} />
-                        <label for="surname">Surname</label>
+                        <label htmlFor="surname">Surname</label>
                         <input id="surname"  valueLink={this.linkState('surname')} />
-                        <label for="email">Email Address</label>
+                        <label htmlFor="email">Email Address</label>
                         <input id="email"  valueLink={this.linkState('email')} />
                     </fieldset>                    
                     <fieldset id="description">
                         <legend>Describe your feature</legend>
-                        <label for="title">Title</label>
+                        <label htmlFor="title">Title</label>
                         <input id="title" placeholder="A short description of the request" valueLink={this.linkState('title')}/>
-                        <MarkdownTextArea rows="10" placeholder="A detailed description your request goes here" value={this.state.body} onChange={this.bodyChanged}/> 
+                        <MarkdownTextArea rows={10} placeholder="A detailed description your request goes here" onChange={this.bodyChanged}/> 
                     </fieldset>
                     <button onClick={this.validate}>Submit your request</button>
-                    <button onClick={this.clear}>Clear</button>
                 </form>
                );
     },
     bodyChanged: function(e) {
         this.setState({ body: event.target.value });
     },
-    clear: function(e) {
-        this.setState(this.getInitialState());
-        e.preventDefault();
-    },
     validate: function(e) {
+
         var newIssues = [];
 
         if (isNullOrEmpty(this.state.firstName))
@@ -67,11 +63,9 @@ module.exports = React.createClass({
         this.setState({ issues: newIssues });
 
         if(newIssues.length === 0)
-            alert("submit to trello"); //callback to parent with valid data
-            //submit
+            this.props.onSubmit(this.state);
 
-        e.preventDefault();
-
+        return false;
     }
 });
 
