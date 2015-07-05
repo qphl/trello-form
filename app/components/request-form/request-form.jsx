@@ -1,4 +1,5 @@
 var React = require("react/addons");
+var IssueList = require("./issue-list.jsx");
 var MarkdownTextArea = require('react-markdown-textarea');
 
 module.exports = React.createClass({
@@ -16,9 +17,18 @@ module.exports = React.createClass({
     render: function() {
         return (
                 <form>
-                    <p>If you do not have a <a href="https://trello.com">Trello</a> account, you can use this form to submit a request relating to a {window.config.organisation} system for consideration by the development team.</p>
-                    <p>If you already have a trello account, you should log in, and submit it directly into the relevant trello board</p>
+
+                    <p>
+                    If you do not have a <a href="https://trello.com">Trello</a> account,
+                    you can use this form to submit a request relating to a {window.config.organisation} 
+                    system for consideration by the development team.
+                    </p>
+                    <p>
+                    If you already have a trello account, you should log in 
+                    and submit your request directly into the relevant trello board</p>
+
                     <IssueList issues={this.state.issues} />
+
                     <fieldset id="userDetails">
                         <legend>Your details</legend>
                         <label htmlFor="firstName">First Name</label>
@@ -27,13 +37,15 @@ module.exports = React.createClass({
                         <input id="surname"  valueLink={this.linkState('surname')} />
                         <label htmlFor="email">Email Address</label>
                         <input id="email"  valueLink={this.linkState('email')} />
-                    </fieldset>                    
+                    </fieldset>
+
                     <fieldset id="description">
                         <legend>Describe your feature</legend>
                         <label htmlFor="title">Title</label>
                         <input id="title" placeholder="A short description of the request" valueLink={this.linkState('title')}/>
                         <MarkdownTextArea rows={10} placeholder="A detailed description your request goes here" onChange={this.bodyChanged}/> 
                     </fieldset>
+
                     <button onClick={this.validate}>Submit your request</button>
                 </form>
                );
@@ -66,21 +78,6 @@ module.exports = React.createClass({
             this.props.onSubmit(this.state);
 
         return false;
-    }
-});
-
-var IssueList = React.createClass({
-    render: function() {
-        if(this.props.issues.length > 0) {
-            var issueNodes = this.props.issues.map(issue => (<li>{issue}</li>)); 
-            return (
-                <ul id="validation-issues">
-                    {issueNodes}
-                </ul>
-            );
-        } else {
-            return null;
-        }
     }
 });
 
