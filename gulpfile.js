@@ -17,7 +17,7 @@ var uglify = require('gulp-uglify');
 var sass = require('gulp-sass');
 
 /* config vars */
-var serverPort = 8888;
+var serverPort = 12345;
 var liveReloadPort = 35729;
 
 /* file paths */
@@ -40,7 +40,7 @@ var vendorBuild = dist + '/vendor';
 
 gulp.task('vendor', function () {
     var ret = gulp.src(vendorFiles);
-    
+
     if(!config.debug)
         ret.pipe(uglify());
 
@@ -85,9 +85,9 @@ function compileScripts(watch) {
         stream.on('error', function (err) { console.error(err); });
         stream = stream.pipe(source(entryFile));
 
-        if(!config.debug)    
+        if(!config.debug)
             stream.pipe(streamify(uglify()));
-        
+
         stream.pipe(rename('app.js'));
         stream.pipe(gulp.dest(dist));
     };
