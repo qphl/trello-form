@@ -16,38 +16,34 @@ module.exports = React.createClass({
     },
     render: function() {
         return (
-                <form>
+                <div className="container">
+                    <h1 className="page-title">{window.config.organisation}</h1>
+                    <h2>Feature Request Form</h2>
+                    <form>
+                        <p>If you do not have a <a href="https://trello.com">Trello</a> account you can use this form to submit a request relating to a {window.config.organisation} system for consideration by the development team. If you already have a Trello account you should log in and submit your request directly into the relevant Trello board.</p>
 
-                    <p>
-                    If you do not have a <a href="https://trello.com">Trello</a> account,
-                    you can use this form to submit a request relating to a {window.config.organisation} 
-                    system for consideration by the development team.
-                    </p>
-                    <p>
-                    If you already have a trello account, you should log in 
-                    and submit your request directly into the relevant trello board</p>
+                        <IssueList issues={this.state.issues} />
 
-                    <IssueList issues={this.state.issues} />
+                        <fieldset id="userDetails">
+                            <legend>Your details</legend>
+                            <label htmlFor="firstName">First Name</label>
+                            <input type="text" id="firstName" valueLink={this.linkState('firstName')} autoFocus />
+                            <label htmlFor="surname">Surname</label>
+                            <input type="text" id="surname" valueLink={this.linkState('surname')} />
+                            <label htmlFor="email">Email Address</label>
+                            <input type="email" id="email" valueLink={this.linkState('email')} />
+                        </fieldset>
 
-                    <fieldset id="userDetails">
-                        <legend>Your details</legend>
-                        <label htmlFor="firstName">First Name</label>
-                        <input id="firstName" valueLink={this.linkState('firstName')} />
-                        <label htmlFor="surname">Surname</label>
-                        <input id="surname"  valueLink={this.linkState('surname')} />
-                        <label htmlFor="email">Email Address</label>
-                        <input id="email"  valueLink={this.linkState('email')} />
-                    </fieldset>
+                        <fieldset id="description">
+                            <legend>Describe your feature</legend>
+                            <label htmlFor="title">Title</label>
+                            <input type="text" id="title" placeholder="A short summary of your request" valueLink={this.linkState('title')}/>
+                            <MarkdownTextArea rows={3} placeholder="A detailed description your request" onChange={this.bodyChanged}/>
+                        </fieldset>
 
-                    <fieldset id="description">
-                        <legend>Describe your feature</legend>
-                        <label htmlFor="title">Title</label>
-                        <input id="title" placeholder="A short description of the request" valueLink={this.linkState('title')}/>
-                        <MarkdownTextArea rows={10} placeholder="A detailed description your request goes here" onChange={this.bodyChanged}/> 
-                    </fieldset>
-
-                    <button onClick={this.validate}>Submit your request</button>
-                </form>
+                        <button onClick={this.validate}>Submit your change request</button>
+                    </form>
+                </div>
                );
     },
     bodyChanged: function(e) {
@@ -82,7 +78,7 @@ module.exports = React.createClass({
 });
 
 function isNullOrEmpty(string) {
-    if(string === null || string === undefined) 
+    if(string === null || string === undefined)
         return true;
 
     if(string.trim().length === 0)

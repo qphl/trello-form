@@ -27,6 +27,7 @@ var htmlFiles = './app/**/*.html';
 var jsxFiles = './app/**/*.jsx';
 var entryFile = './app/app.jsx';
 var scssFiles = './app/styles/*.scss';
+var imageFiles = './app/images/*.*';
 
 var config = {
     debug: false
@@ -61,6 +62,11 @@ gulp.task('styles', function() {
   return gulp.src(scssFiles)
     .pipe(sass({ style: 'compressed' }))
     .pipe(gulp.dest(dist));
+});
+
+gulp.task('images', function() {
+    return gulp.src(imageFiles)
+        .pipe(gulp.dest(dist));
 });
 
 function compileScripts(watch) {
@@ -125,7 +131,7 @@ gulp.task('copy-config', function() {
     gulp.src(['config.js']).pipe(gulp.dest('dist'));
 });
 
-gulp.task('build', [ 'vendor', 'html','styles', 'scripts', 'copy-config' ]);
+gulp.task('build', [ 'vendor', 'html','styles', 'images', 'scripts', 'copy-config' ]);
 
 gulp.task('watch', function () {
     var lrServer = livereload({port: liveReloadPort, start: true});
