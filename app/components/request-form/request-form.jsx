@@ -15,9 +15,11 @@ module.exports = React.createClass({
         }
     },
     render: function() {
+
+        var titleClass = window.config.organisation.replace(" ","").toLowerCase();
         return (
                 <div className="container">
-                    <h1 className="page-title">{window.config.organisation}</h1>
+                    <h1 id="page-title" className={titleClass}>{window.config.organisation}</h1>
                     <h2>Feature Request Form</h2>
                     <form>
                         <p>If you do not have a <a href="https://trello.com">Trello</a> account you can use this form to submit a request relating to a {window.config.organisation} system for consideration by the development team. If you already have a Trello account you should log in and submit your request directly into the relevant Trello board.</p>

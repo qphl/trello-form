@@ -89,8 +89,7 @@ p {
     }
 }
 
-.page-title {
-    background-image: url(pharmaxo.png);
+#page-title {
     background-position: center top;
     background-repeat: no-repeat;
     background-size: contain;
@@ -101,6 +100,12 @@ p {
     overflow: hidden;
     text-indent: 100%;
     white-space: nowrap;
+}
+.pharmaxo {
+    background-image: url(pharmaxo.png);
+}
+.bathasu {
+    background-image: url(bathasu.png);
 }
 
 #validation-issues {
