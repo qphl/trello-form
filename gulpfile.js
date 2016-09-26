@@ -104,7 +104,7 @@ function compileScripts(watch) {
 
 gulp.task('server', function (next) {
     var server = connect();
-    server.use(servestatic(dist)).listen(serverPort, next);
+    server.use(servestatic(dist)).listen(8000, next);
 });
 
 function initWatch(files, task) {

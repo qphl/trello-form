@@ -21,18 +21,56 @@ var App = React.createClass({
             return <ErrorPage text={this.state.errorText} onReturn={this.returnHome} />
         }
         if(view === "success") {
-            return <SuccessPage onReturn={this.returnHome} />
+            return <SuccessPage onReturn={this.returnHome} cardUrl={this.state.cardUrl} />
         }
     },
     returnHome: function() {
         this.setState(this.getInitialState());
     },
     submitCard: function(data) {
-        console.log(window.config);
+        var quotedBits = `
+**Title**
+
+${data.title}
+
+**Description**
+
+${data.body}
+
+**Solution**
+
+${data.solution || 'No solution provided'}
+
+**Business Impact**
+
+${data.impact}
+`.replace(/\n/g, '\n>');
+
+var desc = 
+`
+# Original Description
+Requested by ${data.firstName} ${data.surname} (${data.email})
+
+${quotedBits}
+
+
+---
+
+# Problem Definition
+
+---
+
+# Potential Solutions
+
+---
+
+# Implementation Details`;
+
+
 
         var postData = {
             name: data.title,
-            desc: "Submitted by " + data.firstName + " " + data.surname + " (" + data.email + ") using web-to-trello.\n\n" + data.body,
+            desc: desc, 
             idList: window.config.trelloListId,
         };
 
