@@ -24,9 +24,9 @@ module.exports = React.createClass({
         return (
                 <div className="container">
                     <h1 id="page-title" className={titleClass}>{window.config.organisation}</h1>
-                    <h2>Software Change Request Form</h2>
+                    <h2>{window.config.content.title}</h2>
                     <form>
-                        <p>You can use this form to submit a request relating to a {window.config.organisation} system for consideration by the development team.</p>
+                        <p>{window.config.content.intro}</p>
 
                         <IssueList issues={this.state.issues} />
 
@@ -42,7 +42,7 @@ module.exports = React.createClass({
                         </fieldset>
 
                         <h3>Request Description</h3>
-                        <p>Describing a change in terms of a problem helps us better understand the context behind your request. Something like <em>"It is hard for worksheet writers to read product descriptions"</em> is more useful for us than <em>"Please increase the font size on print-outs".</em></p>
+                        <p>{window.config.content.requestDescription}</p>
                         <fieldset id="description">
                             <legend>Describe your change</legend>
                             <label htmlFor="title">Title</label>
@@ -57,7 +57,7 @@ module.exports = React.createClass({
                             <textarea valueLink={this.linkState('impact')} id="businessImpact" placeholder="Describe the business impact of this problem here"></textarea>
                         </fieldset>
 
-                        <button onClick={this.validate}>Submit your change request</button>
+                        <button onClick={this.validate}>Submit your request</button>
                     </form>
                 </div>
                );
