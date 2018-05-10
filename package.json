@@ -8,7 +8,7 @@
     "lint": "eslint --ext .js --ext .jsx ./app ./gulpfile.js",
     "fix": "eslint --ext .js --ext .jsx --fix ./app ./gulpfile.js",
     "serve": "gulp serve",
-    "dist": "gulp dist",
+    "dist": "gulp --verbose dist",
     "predist": "npm run lint",
     "precommit": "npm run fix && pretty-quick --staged"
   },
@@ -37,7 +37,8 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "gulp": "^3.9.1",
-    "gulp-livereload": "~3.8.0",
+    "gulp-cli": "^2.0.1",
+    "gulp-livereload": "^3.8.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^4.0.1",
     "gulp-streamify": "^1.0.2",
