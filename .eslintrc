@@ -4,7 +4,8 @@
   },
 
   "extends": [
-    "airbnb"
+    "airbnb",
+    "prettier"
   ],
 
   "rules": {
