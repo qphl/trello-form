@@ -135,4 +135,5 @@ ${quotedBits}
   }
 }
 
-Dom.render(<App />, document.body);
+const target = document.getElementById("AppContainer");
+Dom.render(<App />, target);
