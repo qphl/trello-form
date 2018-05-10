@@ -98,6 +98,12 @@ class RequestForm extends React.Component {
     const titleClass = window.config.organisation
       .replace(" ", "")
       .toLowerCase();
+
+    const showSolutionCheckbox =
+      window.config.content.enableSuggestASolution === undefined
+        ? true
+        : window.config.content.enableSuggestASolution;
+
     return (
       <div className="container">
         <h1 id="page-title" className={titleClass}>
@@ -172,12 +178,16 @@ class RequestForm extends React.Component {
                 onChange={this.bodyChanged}
               />
             </label>
-            <input
-              type="checkbox"
-              checked={this.state.showSolution}
-              onChange={this.toggleSolution}
-            />
-            <span> I would also like to suggest a solution</span>
+            {showSolutionCheckbox && (
+              <input
+                type="checkbox"
+                checked={this.state.showSolution}
+                onChange={this.toggleSolution}
+              />
+            )}
+            {showSolutionCheckbox && (
+              <span> I would also like to suggest a solution</span>
+            )}
             {this.state.showSolution && (
               <label htmlFor="suggestSolution">
                 Solution
