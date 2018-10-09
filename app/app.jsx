@@ -40,23 +40,14 @@ ${data.impact}
 `.replace(/\n/g, "\n>");
 
     const desc = `
+# Story
+
+# Acceptance Criteria
+
 # Original Description
 Requested by ${data.firstName} ${data.surname} (${data.email})
 
-${quotedBits}
-
-
----
-
-# Problem Definition
-
----
-
-# Potential Solutions
-
----
-
-# Implementation Details`;
+${quotedBits}`;
 
     const postData = {
       name: data.title,
