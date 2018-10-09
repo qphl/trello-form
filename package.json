@@ -1,9 +1,17 @@
 {
   "name": "trello-form",
   "version": "0.0.0",
-  "description": "A simple form for users to submit feature requests to a trello board",
+  "description":
+    "A simple form for users to submit feature requests to a trello board",
   "main": "index.html",
-  "scripts": {},
+  "scripts": {
+    "lint": "eslint --ext .js --ext .jsx ./app ./gulpfile.js",
+    "fix": "eslint --ext .js --ext .jsx --fix ./app ./gulpfile.js",
+    "serve": "gulp serve",
+    "dist": "gulp --verbose dist",
+    "predist": "npm run lint",
+    "precommit": "npm run fix && pretty-quick --staged"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/cognisant/trello-form.git"
@@ -13,22 +21,35 @@
   "bugs": {
     "url": "https://github.com/cognisant/trello-form/issues"
   },
+  "dependencies": {
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
   "devDependencies": {
-    "browserify": "~10.2.4",
-    "connect": "~3.4.0",
-    "es6ify": "~1.6.0",
-    "gulp": "~3.9.0",
-    "gulp-livereload": "~3.8.0",
-    "gulp-rename": "~1.2.2",
-    "gulp-sass": "^2.3.2",
-    "gulp-streamify": "0.0.5",
-    "gulp-uglify": "~1.2.0",
-    "open": "0.0.5",
-    "react": "~0.13.3",
-    "react-markdown-textarea": "~1.0.0",
-    "reactify": "~1.1.1",
-    "serve-static": "~1.10.0",
-    "vinyl-source-stream": "~1.1.0",
-    "watchify": "~3.2.3"
+    "browserify": "^16.2.2",
+    "connect": "^3.6.6",
+    "es6ify": "^1.6.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^2.0.1",
+    "gulp-livereload": "^3.8.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-streamify": "^1.0.2",
+    "gulp-uglify": "^3.0.0",
+    "husky": "^0.14.3",
+    "open": "^0.0.5",
+    "prettier": "1.12.1",
+    "pretty-quick": "^1.4.1",
+    "reactify": "^1.1.1",
+    "serve-static": "^1.13.2",
+    "vinyl-source-stream": "^2.0.0",
+    "watchify": "^3.11.0"
   }
 }

@@ -1,16 +1,15 @@
-var React = require("react/addons");
+const React = require("react");
+const PropTypes = require("prop-types");
 
-module.exports = React.createClass({
-    render: function() {
-        if(this.props.issues.length > 0) {
-            var issueNodes = this.props.issues.map(issue => (<li>{issue}</li>)); 
-            return (
-                <ul id="validation-issues">
-                    {issueNodes}
-                </ul>
-            );
-        } else {
-            return null;
-        }
-    }
-});
+const issueList = ({ issues }) => {
+  if (issues.length > 0) {
+    return <ul id="validation-issues">{issues.map(i => <li>{i}</li>)}</ul>;
+  }
+  return null;
+};
+
+issueList.propTypes = {
+  issues: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+module.exports = issueList;

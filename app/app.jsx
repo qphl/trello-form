@@ -1,34 +1,27 @@
-var React = require('react');
-var RequestForm = require('./components/request-form/request-form.jsx');
-var ErrorPage = require('./components/error/error.jsx');
-var SuccessPage = require('./components/success/success.jsx');
+const React = require("react");
+const Dom = require("react-dom");
+const RequestForm = require("./components/request-form/request-form.jsx");
+const ErrorPage = require("./components/error/error.jsx");
+const SuccessPage = require("./components/success/success.jsx");
 
-var App = React.createClass({
-    getInitialState: function() {
-        return {
-            view: "form"
-        }
-    },
-    render: function () {
-        var view = this.state.view;
-        if(view === "form") {
-            return <RequestForm onSubmit={this.submitCard} />;
-        }
-        if(view === "saving") {
-            return <p id="loading">Saving...</p> 
-        }
-        if(view === "error") {
-            return <ErrorPage text={this.state.errorText} onReturn={this.returnHome} />
-        }
-        if(view === "success") {
-            return <SuccessPage onReturn={this.returnHome} cardUrl={this.state.cardUrl} />
-        }
-    },
-    returnHome: function() {
-        this.setState(this.getInitialState());
-    },
-    submitCard: function(data) {
-        var quotedBits = `
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      view: "form"
+    };
+
+    this.submitCard = this.submitCard.bind(this);
+    this.returnHome = this.returnHome.bind(this);
+  }
+
+  returnHome() {
+    this.setState({ view: "form" });
+  }
+
+  submitCard(data) {
+    const quotedBits = `
 **Title**
 
 ${data.title}
@@ -39,15 +32,14 @@ ${data.body}
 
 **Solution**
 
-${data.solution || 'No solution provided'}
+${data.solution || "No solution provided"}
 
 **Business Impact**
 
 ${data.impact}
-`.replace(/\n/g, '\n>');
+`.replace(/\n/g, "\n>");
 
-var desc = 
-`
+    const desc = `
 # Original Description
 Requested by ${data.firstName} ${data.surname} (${data.email})
 
@@ -66,63 +58,82 @@ ${quotedBits}
 
 # Implementation Details`;
 
+    const postData = {
+      name: data.title,
+      desc,
+      idList: window.config.trelloListId
+    };
 
+    const postDataString = `name=${encodeURIComponent(
+      postData.name
+    )}&desc=${encodeURIComponent(postData.desc)}&idList=${encodeURIComponent(
+      postData.idList
+    )}&urlSource=null&due=null`;
 
-        var postData = {
-            name: data.title,
-            desc: desc, 
-            idList: window.config.trelloListId,
-        };
+    const url = `https://api.trello.com/1/cards?key=${
+      window.config.trelloAppKey
+    }&token=${window.config.trelloUserToken}`;
+    const request = new XMLHttpRequest();
 
-        var postDataString = "name=" + encodeURIComponent(postData.name) + 
-                             "&desc=" + encodeURIComponent(postData.desc) +
-                             "&idList=" + encodeURIComponent(postData.idList) +
-                             "&urlSource=null&due=null"
+    this.setState({
+      view: "saving"
+    });
 
-        //postDataString = encodeURIComponent(postDataString);
-
-        console.log(postDataString);
-        
-        var url = "https://api.trello.com/1/cards?key=" + window.config.trelloAppKey + "&token=" + window.config.trelloUserToken;
-        var request = new XMLHttpRequest();
-        
+    request.onload = function onLoad() {
+      if (request.status >= 200 && request.status < 400) {
+        // Success!
+        const responseData = JSON.parse(request.responseText);
         this.setState({
-            view: "saving"
+          view: "success",
+          cardUrl: responseData.shortUrl
         });
+      } else {
+        // We reached our target server, but it returned an error
+        this.setState({
+          view: "error",
+          errorText: `${request.status}: ${request.responseText}`
+        });
+      }
+    }.bind(this);
 
-        request.onload = function() {
-          if (request.status >= 200 && request.status < 400) {
-            // Success!
-            var data = JSON.parse(request.responseText);
-            console.log("SUCCESS");
-            console.log(data);
-            this.setState({
-                view: "success",
-                cardUrl: data.shortUrl
-            });
-          } else {
-            // We reached our target server, but it returned an error
-            this.setState({
-                view: "error",
-                errorText: request.status + ": " + request.responseText
-            });
-          }
-        }.bind(this);
+    request.onerror = function onError() {
+      this.setState({
+        view: "error",
+        errorText: ""
+      });
+    }.bind(this);
 
-        request.onerror = function() {
-            this.setState({
-                view: "error",
-                errorText: ""
-            });
-        }.bind(this);
-        
-        request.open('POST', url, true);
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-        request.send(postDataString);
-    }   
-});
+    request.open("POST", url, true);
+    request.setRequestHeader(
+      "Content-Type",
+      "application/x-www-form-urlencoded; charset=UTF-8"
+    );
+    request.send(postDataString);
+  }
 
-React.render(
-  <App />,
-  document.body
-);
+  render() {
+    const { view } = this.state;
+    switch (view) {
+      case "form":
+        return <RequestForm onSubmit={this.submitCard} />;
+      case "saving":
+        return <p id="loading">Saving... </p>;
+      case "error":
+        return (
+          <ErrorPage text={this.state.errorText} onReturn={this.returnHome} />
+        );
+      case "success":
+        return (
+          <SuccessPage
+            onReturn={this.returnHome}
+            cardUrl={this.state.cardUrl}
+          />
+        );
+      default:
+        return <p>Invalid View</p>;
+    }
+  }
+}
+
+const target = document.getElementById("AppContainer");
+Dom.render(<App />, target);
