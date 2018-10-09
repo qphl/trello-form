@@ -8,6 +8,7 @@
     "lint": "eslint --ext .js --ext .jsx ./app ./gulpfile.js",
     "fix": "eslint --ext .js --ext .jsx --fix ./app ./gulpfile.js",
     "serve": "gulp serve",
+    "start": "gulp serve",
     "dist": "gulp --verbose dist",
     "predist": "npm run lint",
     "precommit": "npm run fix && pretty-quick --staged"
