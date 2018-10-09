@@ -214,7 +214,9 @@ class RequestForm extends React.Component {
             </label>
           </fieldset>
 
-          <button onClick={this.validate}>Submit your request</button>
+          <button type="button" onClick={this.validate}>
+            Submit your request
+          </button>
         </form>
       </div>
       /* eslint-enable no-autofocus */
